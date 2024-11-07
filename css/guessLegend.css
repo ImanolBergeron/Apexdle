@@ -1,0 +1,135 @@
+@font-face {
+    font-family: 'Apex';
+    src: url("police/Apex-Black.ttf");
+}
+
+@font-face {
+    font-family: 'Apex_thin';
+    src: url("police/Apex-Bold.ttf");
+}
+
+*{
+    font-family: 'Apex';
+}
+
+header > a > h1{
+    font-size: 5em;
+}
+
+header h1{
+    display: flex;
+    justify-content: center;
+    font-size: 3em;
+    text-shadow: 5px 5px 5px black;
+}
+
+body p {
+    font-size: 2em;
+}
+
+header p{
+    display: flex;
+    justify-content: center;
+    font-family: 'Apex_thin';
+    text-shadow: 3px 3px 3px black;
+}
+
+#theme p {
+    text-shadow: 3px 3px 3px black;
+}
+
+#theme h2 {
+    display: flex;
+    justify-content: center;
+    font-family: 'Apex_thin';
+    font-size: 3em;
+    text-shadow: 3px 3px 3px black;
+}
+
+body{
+    background-image: url('../image/apexfond3.jpg') ;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover ;
+    background-attachment: fixed;
+    color : white;
+}
+
+body h1{
+    color : red;
+}
+
+a{
+    text-decoration: none;
+}
+
+button{
+    padding: 1rem;
+    border-radius: 10px;
+    background-color:red;
+    color:#fff;
+    font-weight: bold;
+    border:none;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    transition: 400ms;
+}
+
+button:hover {
+    background-color: rgb(148, 28, 28);
+}
+
+.conteneur{
+    display: flex;
+    justify-content: center;
+}
+
+.barreDeRecherche{
+    width: 20%;
+    color : black;
+}
+
+#input-search{
+    width: 100%;
+    height: 80%;
+    border-radius: 10px;
+    border-color: black;
+    background-color: rgb(54, 51, 51);
+    color : white;
+}
+
+.caracteristique{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.caracteristique p{
+    text-align: center;
+    width : 15%;
+    margin : 1%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px ;
+    background-color: red;
+}
+
+#Apexdle{
+    letter-spacing: 10px;
+}
+
+#bordure{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+
+@keyframes pop {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(180deg);}
+  }
+  
+  
