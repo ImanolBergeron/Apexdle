@@ -124,40 +124,38 @@ const affichage = () =>{
     const afficheproposition = document.getElementById("display-results");
     afficheproposition.innerHTML = "";
     TabReponseReverse.forEach(reponse =>{
-        const DivConteneurAgent = document.createElement("div");
-        const DivimgAgent = document.createElement("div");
-        const DivNomAgent = document.createElement("div");
-        const DivSexAgent = document.createElement("div");
-        const DivRoleAgent = document.createElement("div");
-        const DivDateSortie = document.createElement("div");
+        const DivConteneurAgent = document.createElement("tr");
+        DivConteneurAgent.classList.add("LigneInfoAgent");
+        const DivimgAgent = document.createElement("td");
+        DivimgAgent.classList.add("CaseImage");
+        const DivNomAgent = document.createElement("td");
+        DivNomAgent.classList.add("CaseNomAgent");
+        const DivSexAgent = document.createElement("td");
+        DivSexAgent.classList.add("CaseSexAgent");
+        const DivRoleAgent = document.createElement("td");
+        DivRoleAgent.classList.add("CaseRoleAgent");
+        const DivDateSortie = document.createElement("td");
+        DivDateSortie.classList.add("CaseDateAgent");
+
 
         const Nom = document.createElement("p");
         Nom.textContent = reponse.agent;
         DivNomAgent.appendChild(Nom);
         if(Nom.textContent.toUpperCase() == rValue.agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
         else{DivNomAgent.style.backgroundColor = "red";}
-        DivNomAgent.style.width = "20%";
-        DivNomAgent.style.maxHeight = "150px";
-        DivNomAgent.style.border = "solid white 1px";
-        DivNomAgent.style.margin = "1.5%";
-        Nom.style.textAlign = "center";
+
 
         const img = document.createElement("img");
+        img.classList.add("ImageDansCase");
         img.src = reponse.image;
         img.alt = "imgPropal";
         DivimgAgent.appendChild(img);
         DivimgAgent.style.backgroundColor = DivNomAgent.style.backgroundColor;
-        DivimgAgent.style.width = "20%";
-        DivimgAgent.style.maxHeight = "150px";
-        DivimgAgent.style.margin = "1%";
-        DivimgAgent.style.border = "solid white 1px";
-        DivimgAgent.style.display = "flex";
-        img.style.maxWidth = "100%";
-        img.style.maxHeight = "80%";
-        img.style.alignSelf = "flex-end";
-        DivConteneurAgent.appendChild(DivimgAgent);
 
+
+        DivConteneurAgent.appendChild(DivimgAgent);
         DivConteneurAgent.appendChild(DivNomAgent);
+
 
         const Sex = document.createElement("p");
         if(reponse.sexe =='f'){Sex.textContent = "Female";}
@@ -166,36 +164,24 @@ const affichage = () =>{
         DivSexAgent.appendChild(Sex);
         if(reponse.sexe == rValue.sexe){DivSexAgent.style.backgroundColor = "green";}
         else{DivSexAgent.style.backgroundColor = "red";}
-        DivSexAgent.style.width = "20%";
-        DivSexAgent.style.maxHeight = "150px";
-        DivSexAgent.style.border = "solid white 1px";
-        DivSexAgent.style.margin = "1.5%";
-        Sex.style.textAlign = "center";
         DivConteneurAgent.appendChild(DivSexAgent);
+
 
         const role = document.createElement("p");
         role.textContent = reponse.type;
         DivRoleAgent.appendChild(role);
         if(role.textContent == rValue.type){DivRoleAgent.style.backgroundColor = "green";}
         else{DivRoleAgent.style.backgroundColor = "red";}
-        DivRoleAgent.style.width = "20%";
-        DivRoleAgent.style.maxHeight = "150px";
-        DivRoleAgent.style.border = "solid white 1px";
-        DivRoleAgent.style.margin = "1.5%";
-        role.style.textAlign = "center";
         DivConteneurAgent.appendChild(DivRoleAgent);
+
 
         const relDate = document.createElement("p");
         relDate.textContent = reponse.date;
         DivDateSortie.appendChild(relDate);
         if(relDate.textContent == rValue.date){DivDateSortie.style.backgroundColor = "green";}
         else{DivDateSortie.style.backgroundColor = "red";}
-        DivDateSortie.style.width = "20%";
-        DivDateSortie.style.maxHeight = "150px";
-        DivDateSortie.style.border = "solid white 1px";
-        DivDateSortie.style.margin = "1.5%";
-        relDate.style.textAlign = "center";
         DivConteneurAgent.appendChild(DivDateSortie);
+
 
         DivConteneurAgent.style.display = "flex";
         afficheproposition.appendChild(DivConteneurAgent);
@@ -203,6 +189,7 @@ const affichage = () =>{
     })
     afficheproposition.style.display = "flex"; 
     afficheproposition.style.flexDirection ="column";
+    afficheproposition.style = document.getElementById("caracteristique").style;
     TabReponse.reverse();
     ListProposition.style.display = "none";
     recherche.value = "";

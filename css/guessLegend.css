@@ -97,22 +97,15 @@ button:hover {
     background-color: rgb(54, 51, 51);
     color : white;
 }
-
-.caracteristique{
-    display: flex;
-    justify-content: center;
-    
-    
+#caracteristique{
+    width: 50%;
+    border-spacing: 30px;
 }
-
-.caracteristique p{
+#caracteristique th{
     text-align: center;
-    width : 15%;
-    margin : 1%;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 10px ;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
     background-color: red;
 }
 
@@ -131,5 +124,67 @@ button:hover {
     from {transform: rotateY(0deg);}
     to {transform: rotateY(180deg);}
   }
+
+
+.CaseNomAgent{
+    width : 20%;
+    max-height: 150px;
+    border : solid white 1px;
+    margin : 1.5%;
+    text-align : center;
+}
   
+.CaseImage {
+    width: 20%;
+    max-height: 150px;
+    margin: 1.5%;
+    border: solid white 1px;
+    display: flex;
+}
+
+.ImageDansCase{
+    max-width : 100%;
+    max-height : 80%;
+    align-self : flex-end;
+}
+
+.CaseSexAgent {
+    width: 20%;
+    max-height: 150px;
+    border: solid white 1px;
+    margin: 1.5%;
+    text-align: center;
+}
+
+.CaseRoleAgent {
+    width: 20%;
+    max-height: 150px;
+    border: solid white 1px;
+    margin: 1.5%;
+    text-align: center;
+}
+
+.CaseDateAgent {
+    width: 20%;
+    max-height: 150px;
+    border: solid white 1px;
+    margin: 1.5%;
+    text-align: center;
+}
+
+#Conteneur-display-results{
+    display: flex;
+    justify-content: center;
+}
+
+#Conteneur-caracteristique{
+    display: flex;
+    justify-content: center;
+}
+
+#display-results{
+    width: 50%;
+}
+
+
   

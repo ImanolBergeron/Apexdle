@@ -25,15 +25,25 @@
             </div>
             <button id="submit">submit</button>
         </div>
-        <div class="caracteristique">
-            <p>Image</p>
-            <p>Agent</p>
-            <p>Gender</p>
-            <p>Role</p>
-            <p>Date</p>
+
+        <div id="Conteneur-caracteristique">
+        <table id="caracteristique">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Agent</th>
+                    <th>Gender</th>
+                    <th>Role</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+        </table>
         </div>
-        <ul id="display-results">
-        </ul>
+
+        <div id="Conteneur-display-results">
+        <table id="display-results">
+        </table>
+        </div>
         
         <div id="bordure">
         <div id="GG">
