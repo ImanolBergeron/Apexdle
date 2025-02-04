@@ -63,11 +63,58 @@ let ListPropositionTab = document.querySelectorAll("#no-result ul li");
 
 
 recherche.value = "";
+
+
+console.log(getCookie('LegendGuessLegends'));
+console.log(getCookie('GuessLegendsAttempts'));
+
+function getCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            return JSON.parse(decodeURIComponent(value));
+        }
+    }
+    return null;
+}
+
+
+function cookieExists(name) {
+    return document.cookie.split(';').some(c => {
+        return c.trim().startsWith(name + '=');
+    });
+}
+
 /**
  * pour afficher l'image et sauvegarder l'agent correspondant
  */
-let rand = Math.random() * TabLegend.length | 0;
-let rValue = TabLegend[rand];
+if(!cookieExists('GuessLegends')){
+    let rand = Math.random() * TabLegend.length | 0;
+    let rValue = TabLegend[rand];
+    let now = new Date();
+    let midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let tempsCookie = Math.floor((midnight - now) / 1000)
+    document.cookie ='LegendGuessLegends=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
+}else{
+    if (cookieExists('GuessLegendsAttempts')) {
+        try {
+            TabReponse = (getCookie('GuessLegendsAttempts'));
+        } catch (e) {
+
+        }
+        console.log("teste : ");
+        console.log(TabReponse);
+    }
+    
+}
+
+    
+
+
+
 
 /*
 --------------------------------------------------------------------------------
@@ -75,15 +122,16 @@ validation perso
 --------------------------------------------------------------------------------
 */
 ButtonSubmit.addEventListener('click' , () =>{
-    if(recherche.value.toUpperCase() === rValue.agent.toUpperCase()){
+    if(recherche.value.toUpperCase() === getCookie('LegendGuessLegends').agent.toUpperCase()){
         recherche.disabled = "true";
         trouvee = true;
     }
-    affichageTour(rValue);
+    affichageTour(getCookie('LegendGuessLegends'));
     ajouterTabreponse();
     affichage();
     if(trouvee){
-        afficherFin(rValue);
+        afficherFin(getCookie('LegendGuessLegends'));
+        document.cookie ='GuessLegends='+ true;
     }
     recherche.value = "";
 })
@@ -110,7 +158,14 @@ const ajouterTabreponse = () =>{
     if(!bool && proposition != null){
         TotalTry++;
         TabReponse.push(proposition); 
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000)
+        document.cookie = 'GuessLegendsAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
+        console.log(getCookie('GuessLegendsAttempts'));
     }
+    
 }
 
 
@@ -141,7 +196,7 @@ const affichage = () =>{
         const Nom = document.createElement("p");
         Nom.textContent = reponse.agent;
         DivNomAgent.appendChild(Nom);
-        if(Nom.textContent.toUpperCase() == rValue.agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
+        if(Nom.textContent.toUpperCase() == getCookie('LegendGuessLegends').agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
         else{DivNomAgent.style.backgroundColor = "red";}
 
 
@@ -162,7 +217,7 @@ const affichage = () =>{
         else if(reponse.sexe =='h'){Sex.textContent = "Male"}
         else{Sex.textContent = "Unknown"}
         DivSexAgent.appendChild(Sex);
-        if(reponse.sexe == rValue.sexe){DivSexAgent.style.backgroundColor = "green";}
+        if(reponse.sexe == getCookie('LegendGuessLegends').sexe){DivSexAgent.style.backgroundColor = "green";}
         else{DivSexAgent.style.backgroundColor = "red";}
         DivConteneurAgent.appendChild(DivSexAgent);
 
@@ -170,7 +225,7 @@ const affichage = () =>{
         const role = document.createElement("p");
         role.textContent = reponse.type;
         DivRoleAgent.appendChild(role);
-        if(role.textContent == rValue.type){DivRoleAgent.style.backgroundColor = "green";}
+        if(role.textContent == getCookie('LegendGuessLegends').type){DivRoleAgent.style.backgroundColor = "green";}
         else{DivRoleAgent.style.backgroundColor = "red";}
         DivConteneurAgent.appendChild(DivRoleAgent);
 
@@ -178,7 +233,7 @@ const affichage = () =>{
         const relDate = document.createElement("p");
         relDate.textContent = reponse.date;
         DivDateSortie.appendChild(relDate);
-        if(relDate.textContent == rValue.date){DivDateSortie.style.backgroundColor = "green";}
+        if(relDate.textContent == getCookie('LegendGuessLegends').date){DivDateSortie.style.backgroundColor = "green";}
         else{DivDateSortie.style.backgroundColor = "red";}
         DivConteneurAgent.appendChild(DivDateSortie);
 
@@ -190,10 +245,12 @@ const affichage = () =>{
     afficheproposition.style.display = "flex"; 
     afficheproposition.style.flexDirection ="column";
     afficheproposition.style = document.getElementById("caracteristique").style;
-    TabReponse.reverse();
     ListProposition.style.display = "none";
     recherche.value = "";
+    TabReponse = TabReponseReverse.reverse();
 }
+
+affichage();
 
 /*
 -------------------------------------------------------------------------------
@@ -201,7 +258,6 @@ affichage du jeu sur le tour en cours
 -------------------------------------------------------------------------------
 */
 const affichageTour=(askedValue) =>{ 
-    const TabReponseReverse = TabReponse.reverse();
     const afficheproposition = document.getElementById("display-results");
     afficheproposition.innerHTML = "";
     const DivConteneurAgent = document.createElement("div");
@@ -214,7 +270,7 @@ const affichageTour=(askedValue) =>{
         const Nom = document.createElement("p");
         Nom.textContent = askedValue.agent;
         DivNomAgent.appendChild(Nom);
-        if(Nom.textContent.toUpperCase() == rValue.agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
+        if(Nom.textContent.toUpperCase() == getCookie('LegendGuessLegends').agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
         else{DivNomAgent.style.backgroundColor = "red";}
         DivNomAgent.style.width = "20%";
         DivNomAgent.style.maxHeight = "150px";
@@ -246,7 +302,7 @@ const affichageTour=(askedValue) =>{
         else if(askedValue.sexe =='h'){Sex.textContent = "Male"}
         else{Sex.textContent = "Unknown"}
         DivSexAgent.appendChild(Sex);
-        if(askedValue.sexe == rValue.sexe){DivSexAgent.style.backgroundColor = "green";}
+        if(askedValue.sexe == getCookie('LegendGuessLegends').sexe){DivSexAgent.style.backgroundColor = "green";}
         else{DivSexAgent.style.backgroundColor = "red";}
         DivSexAgent.style.width = "20%";
         DivSexAgent.style.maxHeight = "150px";
@@ -258,7 +314,7 @@ const affichageTour=(askedValue) =>{
         const role = document.createElement("p");
         role.textContent = askedValue.type;
         DivRoleAgent.appendChild(role);
-        if(role.textContent == rValue.type){DivRoleAgent.style.backgroundColor = "green";}
+        if(role.textContent == getCookie('LegendGuessLegends').type){DivRoleAgent.style.backgroundColor = "green";}
         else{DivRoleAgent.style.backgroundColor = "red";}
         DivRoleAgent.style.width = "20%";
         DivRoleAgent.style.maxHeight = "150px";
@@ -270,7 +326,7 @@ const affichageTour=(askedValue) =>{
         const relDate = document.createElement("p");
         relDate.textContent = askedValue.date;
         DivDateSortie.appendChild(relDate);
-        if(relDate.textContent == rValue.date){DivDateSortie.style.backgroundColor = "green";}
+        if(relDate.textContent == getCookie('LegendGuessLegends').date){DivDateSortie.style.backgroundColor = "green";}
         else{DivDateSortie.style.backgroundColor = "red";}
         DivDateSortie.style.width = "20%";
         DivDateSortie.style.maxHeight = "150px";
@@ -401,6 +457,7 @@ const printPropal = () =>{
         ListProposition.style.display = "block";
         ListProposition.style.width = "20%";
         TabProposition.forEach(propal =>{
+            //ajouter condition ici pour voir si la propal est dans le tableau de reponse
             const proposition = document.createElement("li");
             proposition.textContent = propal.agent;
             proposition.style.color = "white";
