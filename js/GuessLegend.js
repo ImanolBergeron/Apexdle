@@ -45,7 +45,6 @@ init attribut utile
 */
 
 
-let TotalTry = 0;
 
 let trouvee = false;
 
@@ -90,7 +89,7 @@ function cookieExists(name) {
 /**
  * pour afficher l'image et sauvegarder l'agent correspondant
  */
-if(!cookieExists('GuessLegends')){
+if(!cookieExists('LegendGuessLegends')){
     let rand = Math.random() * TabLegend.length | 0;
     let rValue = TabLegend[rand];
     let now = new Date();
@@ -103,14 +102,13 @@ if(!cookieExists('GuessLegends')){
         try {
             TabReponse = (getCookie('GuessLegendsAttempts'));
         } catch (e) {
-
+            TabReponse =[];
         }
         console.log("teste : ");
         console.log(TabReponse);
     }
     
 }
-
     
 
 
@@ -155,9 +153,8 @@ const ajouterTabreponse = () =>{
            bool = true;
         }
     })
-    if(!bool && proposition != null){
-        TotalTry++;
-        TabReponse.push(proposition); 
+    if(!bool && proposition != null && !TabReponse.includes(proposition)){
+        TabReponse.push(proposition);
         let now = new Date();
         let midnight = new Date(now);
         midnight.setHours(24, 0, 0, 0);
@@ -346,6 +343,7 @@ affichage fin de manche une fois la legend trouvé
 -------------------------------------------------------------------------------
 */
 const afficherFin = (reponse) =>{
+    recherche.disabled = "true";
     document.getElementById("GG").style.border = "solid green 8px";
     document.getElementById("GG").style.borderRadius = "10px";
     document.getElementById("GG").style.width = "30%";
@@ -357,7 +355,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
     document.getElementById("nom").textContent = reponse.agent;
-    document.getElementById("try").textContent = "TRY : " + TotalTry;
+    document.getElementById("try").textContent = "TRY : " + TabReponse.length;//////////////////////////////////////////////////////
     document.getElementById("perso").style.display ="flex";
     document.querySelector("#perso img").src = reponse.image;
     document.querySelector("#perso img").alt = "perso";
@@ -379,6 +377,11 @@ const afficherFin = (reponse) =>{
     document.getElementById("button").style.marginTop = "5%";
     document.getElementById("button").style.display = "flex";
     document.getElementById("button").style.justifyContent = "center";
+}
+
+
+if(getCookie('GuessLegends')){
+    afficherFin(getCookie('LegendGuessLegends'));
 }
 
 /*
@@ -440,6 +443,7 @@ const ajouterProposition =() =>{
                 }
             }
         })
+        TabProposition = TabProposition.filter(proposition => !TabReponse.includes(proposition));
     }
 }
 
@@ -457,40 +461,40 @@ const printPropal = () =>{
         ListProposition.style.display = "block";
         ListProposition.style.width = "20%";
         TabProposition.forEach(propal =>{
-            //ajouter condition ici pour voir si la propal est dans le tableau de reponse
-            const proposition = document.createElement("li");
-            proposition.textContent = propal.agent;
-            proposition.style.color = "white";
-            proposition.textShadow = "5px 5px 5px black";
-            proposition.style.textAlign = "center";
-            proposition.style.paddingTop = "5%";
-            proposition.style.backgroundColor = "rgb(128,128,128)";
-            proposition.style.border = "solid white 2px";
-            proposition.style.listStyleType = "none";
-            proposition.style.height = "1cm";
-            proposition.style.cursor = "pointer";
-            ListProposition.appendChild(proposition);
-            ListProposition.style.marginBottom = "1%";
-            ListProposition.style.position = "absolute";
-            ListProposition.style.zIndex = "7";
+                const proposition = document.createElement("li");
+                proposition.textContent = propal.agent;
+                proposition.style.color = "white";
+                proposition.textShadow = "5px 5px 5px black";
+                proposition.style.textAlign = "center";
+                proposition.style.paddingTop = "5%";
+                proposition.style.backgroundColor = "rgb(128,128,128)";
+                proposition.style.border = "solid white 2px";
+                proposition.style.listStyleType = "none";
+                proposition.style.height = "1cm";
+                proposition.style.cursor = "pointer";
+                ListProposition.appendChild(proposition);
+                ListProposition.style.marginBottom = "1%";
+                ListProposition.style.position = "absolute";
+                ListProposition.style.zIndex = "7";
 
 
-            // Add mouseenter event listener to apply the hover effect
-            proposition.addEventListener('mouseenter', () => {
-                proposition.style.backgroundColor = "black";
-                proposition.style.transitionDuration = "0.5s";
-            });
-            // Add mouseleave event listener to remove the hover effect
-            proposition.addEventListener('mouseleave', () => {
-                proposition.style.backgroundColor = "grey";
-                proposition.style.transitionDuration = "0.5s";
-            });
+                // Add mouseenter event listener to apply the hover effect
+                proposition.addEventListener('mouseenter', () => {
+                    proposition.style.backgroundColor = "black";
+                    proposition.style.transitionDuration = "0.5s";
+                    
+                });
+                // Add mouseleave event listener to remove the hover effect
+                proposition.addEventListener('mouseleave', () => {
+                    proposition.style.backgroundColor = "grey";
+                    proposition.style.transitionDuration = "0.5s";
+                });
 
 
-            proposition.addEventListener('click', () =>{
-                recherche.value = proposition.textContent;
-                ButtonSubmit.click();
-            });
+                proposition.addEventListener('click', () =>{
+                    recherche.value = proposition.textContent;
+                    ButtonSubmit.click();
+                });
         })
         let feur =ListProposition.querySelectorAll("#no-result li");
         for(let i=0; i<feur.length;i++){
