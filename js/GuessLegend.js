@@ -63,10 +63,6 @@ let ListPropositionTab = document.querySelectorAll("#no-result ul li");
 
 recherche.value = "";
 
-
-console.log(getCookie('LegendGuessLegends'));
-console.log(getCookie('GuessLegendsAttempts'));
-
 function getCookie(name) {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -100,12 +96,10 @@ if(!cookieExists('LegendGuessLegends')){
 }else{
     if (cookieExists('GuessLegendsAttempts')) {
         try {
-            TabReponse = (getCookie('GuessLegendsAttempts'));
+            TabReponse = getCookie('GuessLegendsAttempts');
         } catch (e) {
             TabReponse =[];
         }
-        console.log("teste : ");
-        console.log(TabReponse);
     }
     
 }
@@ -140,29 +134,25 @@ ButtonSubmit.addEventListener('click' , () =>{
 ajout du perso voulu dans le tableau des reponse
 --------------------------------------------------------------------------------
 */
-const ajouterTabreponse = () =>{
+const ajouterTabreponse = () => {
     let proposition = null;
-    TabLegend.forEach(perso =>{
-        if(perso.agent.toUpperCase() == recherche.value.toUpperCase()){
+    TabLegend.forEach(perso => {
+        if (perso.agent.toUpperCase() === recherche.value.toUpperCase()) {
             proposition = perso;
         }
-    })
-    let bool = false;
-    TabReponse.forEach(reponse =>{
-        if(reponse == proposition){
-           bool = true;
-        }
-    })
-    if(!bool && proposition != null && !TabReponse.includes(proposition)){
+    });
+    if (!proposition) return;
+    const dejaPropose = TabReponse.some(reponse => 
+        reponse.agent.toUpperCase() === proposition.agent.toUpperCase()
+    );
+    if (!dejaPropose) {
         TabReponse.push(proposition);
         let now = new Date();
         let midnight = new Date(now);
         midnight.setHours(24, 0, 0, 0);
-        let tempsCookie = Math.floor((midnight - now) / 1000)
+        let tempsCookie = Math.floor((midnight - now) / 1000);
         document.cookie = 'GuessLegendsAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
-        console.log(getCookie('GuessLegendsAttempts'));
     }
-    
 }
 
 
@@ -235,12 +225,9 @@ const affichage = () =>{
         DivConteneurAgent.appendChild(DivDateSortie);
 
 
-        DivConteneurAgent.style.display = "flex";
         afficheproposition.appendChild(DivConteneurAgent);
         
     })
-    afficheproposition.style.display = "flex"; 
-    afficheproposition.style.flexDirection ="column";
     afficheproposition.style = document.getElementById("caracteristique").style;
     ListProposition.style.display = "none";
     recherche.value = "";
@@ -257,12 +244,12 @@ affichage du jeu sur le tour en cours
 const affichageTour=(askedValue) =>{ 
     const afficheproposition = document.getElementById("display-results");
     afficheproposition.innerHTML = "";
-    const DivConteneurAgent = document.createElement("div");
-        const DivimgAgent = document.createElement("div");
-        const DivNomAgent = document.createElement("div");
-        const DivSexAgent = document.createElement("div");
-        const DivRoleAgent = document.createElement("div");
-        const DivDateSortie = document.createElement("div");
+    const DivConteneurAgent = document.createElement("tr");
+        const DivimgAgent = document.createElement("td");
+        const DivNomAgent = document.createElement("td");
+        const DivSexAgent = document.createElement("td");
+        const DivRoleAgent = document.createElement("td");
+        const DivDateSortie = document.createElement("td");
 
         const Nom = document.createElement("p");
         Nom.textContent = askedValue.agent;
@@ -355,7 +342,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
     document.getElementById("nom").textContent = reponse.agent;
-    document.getElementById("try").textContent = "TRY : " + TabReponse.length;//////////////////////////////////////////////////////
+    document.getElementById("try").textContent = "TRY : " + TabReponse.length;
     document.getElementById("perso").style.display ="flex";
     document.querySelector("#perso img").src = reponse.image;
     document.querySelector("#perso img").alt = "perso";
@@ -365,7 +352,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("doubleBordure").style.border = "solid white 2px";
     document.getElementById("doubleBordure").style.paddingRight = "150%";
     document.getElementById("doubleBordure").style.paddingLeft = "150%";
-    document.getElementById("suivant").textContent = "Weapon";
+    document.getElementById("suivant").textContent = "Ability";
     document.getElementById("suivant").style.textAlign = "center";
     document.getElementById("suivant").style.color = "white";
     document.getElementById("suivant").style.padding = "5%";
@@ -425,25 +412,28 @@ recherche.addEventListener('input', () =>{
 ajout au tableau des proposition si les caractere rechercher sont dans le nom
 --------------------------------------------------------------------------------
 */
-const ajouterProposition =() =>{
-    ListProposition.innerHTML="";
-    TabProposition = [] ;
+const ajouterProposition = () => {
+    ListProposition.innerHTML = "";
+    TabProposition = [];
     const ul = document.createElement("ul");
     ul.style.listStyleType = "none";
     ListProposition.appendChild(ul);
-    if(recherche.value == ""){
-        ListProposition.innerHTML="";
+
+    if (recherche.value === "") {
+        ListProposition.innerHTML = "";
         TabProposition = [];
-    }
-    else{
-        TabLegend.forEach(legend =>{
-            if(legend.agent.toUpperCase().includes(recherche.value.toUpperCase())){
-                if(!TabReponse.includes(legend) && !TabProposition.includes(legend)){
+    } else {
+        TabLegend.forEach(legend => {
+            if (legend.agent.toUpperCase().includes(recherche.value.toUpperCase())) {
+                const dejaPropose = TabReponse.some(reponse => 
+                    reponse.agent.toUpperCase() === legend.agent.toUpperCase()
+                );
+
+                if (!dejaPropose && !TabProposition.includes(legend)) {
                     TabProposition.push(legend);
                 }
             }
-        })
-        TabProposition = TabProposition.filter(proposition => !TabReponse.includes(proposition));
+        });
     }
 }
 

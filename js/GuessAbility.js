@@ -144,6 +144,27 @@ let i = 0;
 
 let ListPropositionTab = document.querySelectorAll("#no-result ul li");
 
+recherche.value = "";
+
+function getCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            return JSON.parse(decodeURIComponent(value));
+        }
+    }
+    return null;
+}
+
+
+function cookieExists(name) {
+    return document.cookie.split(';').some(c => {
+        return c.trim().startsWith(name + '=');
+    });
+}
+
 
 
 /**

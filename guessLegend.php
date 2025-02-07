@@ -27,23 +27,22 @@
         </div>
 
         <div id="Conteneur-caracteristique">
-        <table id="caracteristique">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Agent</th>
-                    <th>Gender</th>
-                    <th>Role</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-        </table>
+            <table id="caracteristique">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Agent</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                    <tbody id="display-results">
+                    </tbody>
+            </table>
         </div>
 
-        <div id="Conteneur-display-results">
-        <table id="display-results">
-        </table>
-        </div>
+        
         
         <div id="bordure">
         <div id="GG">
@@ -56,7 +55,7 @@
                         <p id="try"></p>
                     </div>
                 </div>
-                <a href="guessWeapon.php">
+                <a href="guessAbility.php">
                     <div id="button">
                         <div id="doubleBordure">
                             <div id ="SousCategorie">
