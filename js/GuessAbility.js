@@ -170,10 +170,25 @@ function cookieExists(name) {
 /**
  * pour afficher l'image et sauvegarder l'agent correspondant
  */
-let rand = Math.random() * TabAbility.length | 0;
-let rValue = TabAbility[rand];
-image.src = rValue.image;
-let agent = rValue.agent;
+if(!cookieExists('LegendGuessAbility')){
+    let rand = Math.random() * TabAbility.length | 0;
+    let rValue = TabAbility[rand];
+    let now = new Date();
+    let midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let tempsCookie = Math.floor((midnight - now) / 1000)
+    document.cookie = 'LegendGuessAbility=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
+}else{
+    if (cookieExists('GuessAbilityAttempts')) {
+        try {
+            TabReponse = getCookie('GuessAbilityAttempts');
+        } catch (e) {
+            TabReponse = [];
+        }
+    }
+}
+
+image.src = getCookie('LegendGuessAbility').image;
 
 /*
 --------------------------------------------------------------------------------
@@ -181,43 +196,58 @@ validation perso
 --------------------------------------------------------------------------------
 */
 ButtonSubmit.addEventListener('click' , () =>{
-    if(recherche.value.toUpperCase() === rValue.agent.toUpperCase()){
-        recherche.disabled = "true";
+    if(recherche.value.toUpperCase() === getCookie('LegendGuessAbility').agent.toUpperCase()){
+        recherche.disabled = true;
         trouvee = true;
-        TotalTry++;
         let proposition = null;
-        TabLegend.forEach(perso =>{
-            if(perso.agent.toUpperCase() === rValue.agent.toUpperCase()){
+        TabLegend.forEach(perso => {
+            if(perso.agent.toUpperCase() === getCookie('LegendGuessAbility').agent.toUpperCase()){
                 proposition = perso;
             }
-        })
-        affichage(proposition);
-    }
-    else{
+        });
+        if(proposition) {
+            TabReponse.push(proposition);
+            let now = new Date();
+            let midnight = new Date(now);
+            midnight.setHours(24, 0, 0, 0);
+            let tempsCookie = Math.floor((midnight - now) / 1000);
+            document.cookie = 'GuessAbilityAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
+            affichage(proposition);
+            now = new Date();
+            midnight = new Date(now);
+            midnight.setHours(24, 0, 0, 0);
+            tempsCookie = Math.floor((midnight - now) / 1000);
+            document.cookie = 'GuessAbility=true; max-age=' + tempsCookie;
+        }
+    } else {
         ajouterTabreponse();
         affichage();
     }
     recherche.value = "";
-})
+});
 
 
-
-const ajouterTabreponse = () =>{
+const ajouterTabreponse = () => {
     let proposition = null;
-    TabLegend.forEach(perso =>{
-        if(perso.agent.toUpperCase() == recherche.value.toUpperCase()){
+    TabLegend.forEach(perso => {
+        if(perso.agent.toUpperCase() === recherche.value.toUpperCase()) {
             proposition = perso;
         }
-    })
-    let bool = false;
-    TabReponse.forEach(reponse =>{
-        if(reponse == proposition){
-           bool = true;
-        }
-    })
-    if(!bool && proposition != null){
-        TotalTry++;
-        TabReponse.push(proposition); 
+    });
+    
+    if(!proposition) return;
+    
+    const dejaPropose = TabReponse.some(reponse => 
+        reponse.agent.toUpperCase() === proposition.agent.toUpperCase()
+    );
+    
+    if (!dejaPropose) {
+        TabReponse.push(proposition);
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessAbilityAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
     }
 }
 
@@ -240,7 +270,11 @@ const affichage = ( perso=null ) =>{
             divConteneur.style.display = "flex";
             divConteneur.style.justifyContent = "center";
             divConteneur.style.alignItems = "center";
-            divConteneur.style.backgroundColor = "red";
+            if(reponse.agent.toUpperCase() == getCookie('LegendGuessAbility').agent.toUpperCase()){
+                divConteneur.style.backgroundColor = "green";
+            }else{
+                divConteneur.style.backgroundColor = "red";
+            }
             divConteneur.style.width = "30%";
             afficheproposition.appendChild(divConteneur);
         })
@@ -275,6 +309,9 @@ const affichage = ( perso=null ) =>{
     recherche.value = "";
 }
 
+
+affichage()
+
 /*
 -------------------------------------------------------------------------------
 affichage fin de manche une fois la legend trouvé
@@ -292,7 +329,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
     document.getElementById("nom").textContent = reponse.agent;
-    document.getElementById("try").textContent = "TRY : " + TotalTry;
+    document.getElementById("try").textContent = "TRY : " + getCookie('GuessAbilityAttempts').length;
     document.getElementById("perso").style.display ="flex";
     document.querySelector("#perso img").src = reponse.image;
     document.querySelector("#perso img").alt = "perso";
@@ -369,7 +406,10 @@ const ajouterProposition =() =>{
     else{
         TabLegend.forEach(legend =>{
             if(legend.agent.toUpperCase().includes(recherche.value.toUpperCase())){
-                if(!TabReponse.includes(legend) && !TabProposition.includes(legend)){
+                const dejaPropose = TabReponse.some(reponse => 
+                    reponse.agent.toUpperCase() === legend.agent.toUpperCase()
+                );
+                if(!dejaPropose && !TabProposition.includes(legend)){
                     TabProposition.push(legend);
                 }
             }
@@ -402,12 +442,10 @@ const printPropal = () =>{
             ListProposition.style.zIndex = "7";
 
 
-            // Add mouseenter event listener to apply the hover effect
             proposition.addEventListener('mouseenter', () => {
                 proposition.style.backgroundColor = "black";
                 proposition.style.transitionDuration = "0.5s";
             });
-            // Add mouseleave event listener to remove the hover effect
             proposition.addEventListener('mouseleave', () => {
                 proposition.style.backgroundColor = "grey";
                 proposition.style.transitionDuration = "0.5s";
@@ -436,5 +474,23 @@ const dessus = (elt) =>{
 const ailleur = (elt) =>{
     elt.style.backgroundColor = "rgb(128,128,128)";
 }
+
+
+
+if(cookieExists('GuessAbility')){
+    let proposition = null;
+    TabLegend.forEach(perso => {
+        if(perso.agent.toUpperCase() === getCookie('LegendGuessAbility').agent.toUpperCase()){
+            proposition = perso;
+        }
+    });
+    if(proposition) {
+        affichage(proposition);
+        afficherFin(proposition);
+        recherche.disabled = true;
+        trouvee = true;
+    }
+}
+console.log(getCookie('LegendGuessAbility'))
 
 
