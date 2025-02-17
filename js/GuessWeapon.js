@@ -90,10 +90,24 @@ function cookieExists(name) {
 /**
  * pour afficher l'image et sauvegarder l'arme correspondant
  */
-let rand = Math.random() * TabWeapon.length | 0;
-let rValue = TabWeapon[rand];
-image.src = rValue.image;
-let weapon = rValue;
+if(!cookieExists('WeaponGuessWeapon')){
+    let rand = Math.random() * TabWeapon.length | 0;
+    let rValue = TabWeapon[rand];
+    let now = new Date();
+    let midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let tempsCookie = Math.floor((midnight - now) / 1000)
+    document.cookie = 'WeaponGuessWeapon=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
+}else{
+    if (cookieExists('GuessWeaponAttempts')) {
+        try {
+            TabReponse = getCookie('GuessWeaponAttempts');
+        } catch (e) {
+            TabReponse = [];
+        }
+    }
+}
+image.src = getCookie('WeaponGuessWeapon').image;
 
 /*
 --------------------------------------------------------------------------------
@@ -101,11 +115,22 @@ validation arme
 --------------------------------------------------------------------------------
 */
 ButtonSubmit.addEventListener('click' , () =>{
-    if(recherche.value.toUpperCase() === rValue.name.toUpperCase()){
+    if(recherche.value.toUpperCase() === getCookie('WeaponGuessWeapon').name.toUpperCase()){
         recherche.disabled = "true";
         trouvee = true;
         TotalTry++;
-        affichage(weapon);
+        TabReponse.push(getCookie('WeaponGuessWeapon'));
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessWeaponAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
+        affichage(getCookie('WeaponGuessWeapon'));
+        now = new Date();
+        midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessWeapon=true; max-age=' + tempsCookie;
     }
     else{
         ajouterTabreponse();
@@ -123,15 +148,19 @@ const ajouterTabreponse = () =>{
             proposition = arme;
         }
     })
-    let bool = false;
-    TabReponse.forEach(reponse =>{
-        if(reponse == proposition){
-           bool = true;
-        }
-    })
-    if(!bool && proposition != null){
+    if(!proposition) return;
+    
+    const dejaPropose = TabReponse.some(reponse => 
+        reponse.name.toUpperCase() === proposition.name.toUpperCase()
+    );
+    if(!dejaPropose){
         TotalTry++;
-        TabReponse.push(proposition); 
+        TabReponse.push(proposition);
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessWeaponAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
     }
 }
 
@@ -154,7 +183,11 @@ const affichage = ( Weapon=null ) =>{
             divConteneur.style.display = "flex";
             divConteneur.style.justifyContent = "center";
             divConteneur.style.alignItems = "center";
-            divConteneur.style.backgroundColor = "red";
+            if(reponse.name.toUpperCase() == getCookie('WeaponGuessWeapon').name.toUpperCase()){
+                divConteneur.style.backgroundColor = "green";
+            }else{
+                divConteneur.style.backgroundColor = "red";
+            }
             divConteneur.style.width = "30%";
             divConteneur.style.height = "70px";
             afficheproposition.appendChild(divConteneur);
@@ -192,6 +225,8 @@ const affichage = ( Weapon=null ) =>{
     recherche.value = "";
 }
 
+affichage();
+
 /*
 -------------------------------------------------------------------------------
 affichage fin de manche une fois l'arme trouvé
@@ -209,7 +244,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
     document.getElementById("nom").textContent = reponse.name;
-    document.getElementById("try").textContent = "TRY : " + TotalTry;
+    document.getElementById("try").textContent = "TRY : " + getCookie('GuessWeaponAttempts').length;
     document.getElementById("perso").style.display ="flex";
     document.querySelector("#perso img").src = reponse.image;
     document.querySelector("#perso img").alt = "perso";
@@ -244,8 +279,7 @@ affichage Proposition arme
 
 recherche.addEventListener('keydown',(event)=>{
     if((event.key == 'Enter' || event =='13') && TabProposition.length >= 0){
-        let arme = TabProposition[SelectedProposition];
-        recherche.value = arme.name;
+        recherche.value = TabProposition[SelectedProposition].name;
         ButtonSubmit.click();
         SelectedProposition = 0;
     }
@@ -286,7 +320,10 @@ const ajouterProposition =() =>{
     else{
         TabWeapon.forEach(arme =>{
             if(arme.name.toUpperCase().includes(recherche.value.toUpperCase())){
-                if(!TabReponse.includes(arme) && !TabProposition.includes(arme)){
+                const dejaPropose = TabReponse.some(reponse => 
+                    reponse.name.toUpperCase() === arme.name.toUpperCase()
+                );
+                if(!dejaPropose && !TabProposition.includes(arme)){
                     TabProposition.push(arme);
                 }
             }
@@ -354,4 +391,18 @@ const ailleur = (elt) =>{
     elt.style.backgroundColor = "rgb(128,128,128)";
 }
 
+if(cookieExists('GuessWeapon')){
+    let proposition = null;
+    TabWeapon.forEach(perso => {
+        if(perso.name.toUpperCase() === getCookie('WeaponGuessWeapon').name.toUpperCase()){
+            proposition = perso;
+        }
+    });
+    if(proposition) {
+        affichage(proposition);
+        afficherFin(proposition);
+        recherche.disabled = true;
+        trouvee = true;
+    }
+}
 
