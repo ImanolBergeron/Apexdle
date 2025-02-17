@@ -157,12 +157,27 @@ function cookieExists(name) {
 
 
 /**
- * pour afficher l'image et sauvegarder l'agent correspondant
+ * pour afficher l'image et sauvegarder la citation correspondant
  */
-let rand = Math.random() * TabQuote.length | 0;
-let rValue = TabQuote[rand];
-line.textContent = rValue.quote;
-let agent = rValue.agent;
+
+if(!cookieExists('LegendGuessQuote')){
+    let rand = Math.random() * TabQuote.length | 0;
+    let rValue = TabQuote[rand];
+    let now = new Date();
+    let midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let tempsCookie = Math.floor((midnight - now) / 1000)
+    document.cookie = 'LegendGuessQuote=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
+}else{
+    if (cookieExists('GuessQuoteAttempts')) {
+        try {
+            TabReponse = getCookie('GuessQuoteAttempts');
+        } catch (e) {
+            TabReponse = [];
+        }
+    }
+}
+line.textContent = getCookie('LegendGuessQuote').quote;
 
 /*
 --------------------------------------------------------------------------------
@@ -170,17 +185,28 @@ validation perso
 --------------------------------------------------------------------------------
 */
 ButtonSubmit.addEventListener('click' , () =>{
-    if(recherche.value.toUpperCase() === rValue.agent.toUpperCase()){
+    if(recherche.value.toUpperCase() === getCookie('LegendGuessQuote').agent.toUpperCase()){
         recherche.disabled = "true";
         trouvee = true;
         TotalTry++;
         let proposition = null;
         TabLegend.forEach(perso =>{
-            if(perso.agent.toUpperCase() === rValue.agent.toUpperCase()){
+            if(perso.agent.toUpperCase() === getCookie('LegendGuessQuote').agent.toUpperCase()){
                 proposition = perso;
             }
         })
+        TabReponse.push(proposition);
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessQuoteAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
         affichage(proposition);
+        now = new Date();
+        midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessQuote=true; max-age=' + tempsCookie;
     }
     else{
         ajouterTabreponse();
@@ -198,15 +224,19 @@ const ajouterTabreponse = () =>{
             proposition = perso;
         }
     })
-    let bool = false;
-    TabReponse.forEach(reponse =>{
-        if(reponse == proposition){
-           bool = true;
-        }
-    })
-    if(!bool && proposition != null){
+    if(!proposition) return;
+    
+    const dejaPropose = TabReponse.some(reponse => 
+        reponse.agent.toUpperCase() === proposition.agent.toUpperCase()
+    );
+    if(!dejaPropose){
         TotalTry++;
         TabReponse.push(proposition); 
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000);
+        document.cookie = 'GuessQuoteAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
     }
 }
 
@@ -229,7 +259,11 @@ const affichage = ( perso=null ) =>{
             divConteneur.style.display = "flex";
             divConteneur.style.justifyContent = "center";
             divConteneur.style.alignItems = "center";
-            divConteneur.style.backgroundColor = "red";
+            if(reponse.agent.toUpperCase() == getCookie('LegendGuessQuote').agent.toUpperCase()){
+                divConteneur.style.backgroundColor = "green";
+            }else{
+                divConteneur.style.backgroundColor = "red";
+            }
             divConteneur.style.width = "30%";
             afficheproposition.appendChild(divConteneur);
         })
@@ -264,6 +298,8 @@ const affichage = ( perso=null ) =>{
     recherche.value = "";
 }
 
+affichage();
+
 /*
 -------------------------------------------------------------------------------
 affichage fin de manche une fois la legend trouvé
@@ -281,7 +317,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
     document.getElementById("nom").textContent = reponse.agent;
-    document.getElementById("try").textContent = "TRY : " + TotalTry;
+    document.getElementById("try").textContent = "TRY : " + getCookie('GuessQuoteAttempts').length;
     document.getElementById("perso").style.display ="flex";
     document.querySelector("#perso img").src = reponse.image;
     document.querySelector("#perso img").alt = "perso";
@@ -358,7 +394,10 @@ const ajouterProposition =() =>{
     else{
         TabLegend.forEach(legend =>{
             if(legend.agent.toUpperCase().includes(recherche.value.toUpperCase())){
-                if(!TabReponse.includes(legend) && !TabProposition.includes(legend)){
+                const dejaPropose = TabReponse.some(reponse => 
+                    reponse.agent.toUpperCase() === legend.agent.toUpperCase()
+                );
+                if(!dejaPropose && !TabProposition.includes(legend)){
                     TabProposition.push(legend);
                 }
             }
@@ -426,4 +465,17 @@ const ailleur = (elt) =>{
     elt.style.backgroundColor = "rgb(128,128,128)";
 }
 
-
+if(cookieExists('GuessQuote')){
+    let proposition = null;
+    TabLegend.forEach(perso => {
+        if(perso.agent.toUpperCase() === getCookie('LegendGuessQuote').agent.toUpperCase()){
+            proposition = perso;
+        }
+    });
+    if(proposition) {
+        affichage(proposition);
+        afficherFin(proposition);
+        recherche.disabled = true;
+        trouvee = true;
+    }
+}
