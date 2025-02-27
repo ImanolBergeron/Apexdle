@@ -3,39 +3,22 @@
  init tableau
  --------------------------------------------------------------------------
  */
- let TabLegend = [
-    {image : '../image/perso/alter.webp', type : 'Skirmisher', agent : 'Alter',sexe: 'f', date: '2021'},
-    {image : '../image/perso/ash.webp', type : 'Assault', agent : 'Ash',sexe: 'f', date: '2021'},
-    {image : '../image/perso/ballistic.webp', type : 'Assault', agent : 'Ballistic',sexe: 'h',date: '2023'},
-    {image : '../image/perso/bangalore.webp', type : 'Assault', agent : 'Bangalore',sexe: 'f', date:'2019'},
-    {image : '../image/perso/bloodhound.webp', type : 'Recon', agent : 'Bloodhound', sexe: 'u', date:'2019'},
-    {image : '../image/perso/catalyst.webp', type : 'Controller', agent : 'Catalyst',sexe: 'f', date:'2023'},
-    {image : '../image/perso/caustic.webp', type : 'Controller', agent : 'Caustic',sexe: 'h', date:'2019'},
-    {image : '../image/perso/conduit.png', type : 'Support', agent : 'Conduit',sexe: 'f',date: '2023'},
-    {image : '../image/perso/crypto.webp', type : 'Recon', agent : 'Crypto',sexe: 'h', date: '2019'},
-    {image : '../image/perso/fuse.webp', type : 'Assault', agent : 'Fuse', sexe: 'h',date: '2021'},
-    {image : '../image/perso/gibi.webp', type : 'Support', agent : 'Gibraltar', sexe: 'h',date:'2019'},
-    {image : '../image/perso/horizon.webp', type : 'Skirmisher', agent : 'Horizon', sexe: 'f',date:'2020'},
-    {image : '../image/perso/lifeline.png', type : 'Support', agent : 'Lifeline', sexe: 'f',date:'2019'},
-    {image : '../image/perso/loba.webp', type : 'Support', agent : 'Loba', sexe: 'f',date:'2020'},
-    {image : '../image/perso/madmaggie.png', type : 'Assault', agent : 'Mad Maggie', sexe: 'f',date:'2022'},
-    {image : '../image/perso/mirage.png', type : 'Support', agent : 'Mirage', sexe: 'h',date:'2019'},
-    {image : '../image/perso/newcastle.webp', type : 'Support', agent : 'Newcastle', sexe: 'h',date:'2022'},
-    {image : '../image/perso/octane.webp', type : 'Skirmisher', agent : 'Octane', sexe: 'h',date:'2019'},
-    {image : '../image/perso/pathfinder.webp', type : 'Skirmisher', agent : 'Pathfinder', sexe: 'h',date:'2019'},
-    {image : '../image/perso/rampart.webp', type : 'Controller', agent : 'Rampart', sexe: 'f',date:'2020'},
-    {image : '../image/perso/revenant.webp', type : 'Skirmisher', agent : 'Revenant', sexe: 'h',date:'2020'},
-    {image : '../image/perso/seer.png', type : 'Recon', agent : 'Seer', sexe: 'h',date:'2021'},
-    {image : '../image/perso/valkyrie.webp', type : 'Skirmisher', agent : 'Valkyrie', sexe: 'f',date:'2021'},
-    {image : '../image/perso/vantage.webp', type : 'Recon', agent : 'Vantage', sexe: 'f',date:'2022'},
-    {image : '../image/perso/wattson.webp', type : 'Controller', agent : 'Wattson', sexe: 'f',date:'2019'},
-    {image : '../image/perso/wraith.webp', type : 'Assault', agent : 'Wraith', sexe: 'f',date:'2019'}
+ let TabPro = [
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Birt', nationality : 'Canada', team : 'Team FiRE',status: 'Retired', age: '26', entryYear : '2019', img :''},
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
 ];
 
 let TabReponse = [];
 
 let TabProposition = [];
 
+
+const imgBase = '../image/NoImage.png';
 
 
 /*
@@ -83,27 +66,26 @@ function cookieExists(name) {
 }
 
 /**
- * pour afficher l'image et sauvegarder l'agent correspondant
+ * pour sauvegarder l'agent correspondant
  */
-if(!cookieExists('LegendGuessLegends')){
-    let rand = Math.random() * TabLegend.length | 0;
-    let rValue = TabLegend[rand];
+if(!cookieExists('PlayerGuessPro')){
+    let rand = Math.random() * TabPro.length | 0;
+    let rValue = TabPro[rand];
     let now = new Date();
     let midnight = new Date(now);
     midnight.setHours(24, 0, 0, 0);
     let tempsCookie = Math.floor((midnight - now) / 1000)
-    document.cookie ='LegendGuessLegends=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
+    document.cookie ='PlayerGuessPro=' + JSON.stringify(rValue) + '; max-age=' + tempsCookie;
 }else{
-    if (cookieExists('GuessLegendsAttempts')) {
+    if (cookieExists('GuessProAttempts')) {
         try {
-            TabReponse = getCookie('GuessLegendsAttempts');
+            TabReponse = getCookie('GuessProAttempts');
         } catch (e) {
             TabReponse =[];
         }
     }
     
 }
-    
 
 /*
 --------------------------------------------------------------------------------
@@ -111,15 +93,15 @@ validation perso
 --------------------------------------------------------------------------------
 */
 ButtonSubmit.addEventListener('click' , () =>{
-    if(recherche.value.toUpperCase() === getCookie('LegendGuessLegends').agent.toUpperCase()){
+    if(recherche.value.toUpperCase() === getCookie('PlayerGuessPro').name.toUpperCase()){
         recherche.disabled = "true";
         trouvee = true;
     }
     ajouterTabreponse();
     affichage();
     if(trouvee){
-        afficherFin(getCookie('LegendGuessLegends'));
-        document.cookie ='GuessLegends='+ true;
+        afficherFin(getCookie('PlayerGuessPro'));
+        document.cookie ='GuessPro='+ true;
     }
     recherche.value = "";
 })
@@ -132,14 +114,14 @@ ajout du perso voulu dans le tableau des reponse
 */
 const ajouterTabreponse = () => {
     let proposition = null;
-    TabLegend.forEach(perso => {
-        if (perso.agent.toUpperCase() === recherche.value.toUpperCase()) {
+    TabPro.forEach(perso => {
+        if (perso.name.toUpperCase() === recherche.value.toUpperCase()) {
             proposition = perso;
         }
     });
     if (!proposition) return;
     const dejaPropose = TabReponse.some(reponse => 
-        reponse.agent.toUpperCase() === proposition.agent.toUpperCase()
+        reponse.name.toUpperCase() === proposition.name.toUpperCase()
     );
     if (!dejaPropose) {
         TabReponse.push(proposition);
@@ -147,7 +129,7 @@ const ajouterTabreponse = () => {
         let midnight = new Date(now);
         midnight.setHours(24, 0, 0, 0);
         let tempsCookie = Math.floor((midnight - now) / 1000);
-        document.cookie = 'GuessLegendsAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
+        document.cookie = 'GuessProAttempts=' + JSON.stringify(TabReponse) + '; max-age=' + tempsCookie;
     }
 }
 
@@ -162,59 +144,65 @@ const affichage = () =>{
     const afficheproposition = document.getElementById("display-results");
     afficheproposition.innerHTML = "";
     TabReponseReverse.forEach(reponse =>{
-        const DivConteneurAgent = document.createElement("tr");
-        DivConteneurAgent.classList.add("LigneInfoAgent");
-        const DivimgAgent = document.createElement("td");
-        DivimgAgent.classList.add("CaseImage");
-        const DivNomAgent = document.createElement("td");
-        DivNomAgent.classList.add("CaseAgent");
-        const DivSexAgent = document.createElement("td");
-        DivSexAgent.classList.add("CaseAgent");
-        const DivRoleAgent = document.createElement("td");
-        DivRoleAgent.classList.add("CaseAgent");
-        const DivDateSortie = document.createElement("td");
-        DivDateSortie.classList.add("CaseAgent");
+        const DivConteneurJoueur = document.createElement("tr");
+        DivConteneurJoueur.classList.add("LigneInfoAgent");
+        const DivNomJoueur = document.createElement("td");
+        DivNomJoueur.classList.add("CasePro");
+        const DivNationalityJoueur = document.createElement("td");
+        DivNationalityJoueur.classList.add("CasePro");
+        const DivTeamJoueur = document.createElement("td");
+        DivTeamJoueur.classList.add("CasePro");
+        const DivStatusJoueur = document.createElement("td");
+        DivStatusJoueur.classList.add("CasePro");
+        const DivAgeJoueur = document.createElement("td");
+        DivAgeJoueur.classList.add("CasePro");
+        const DivEntryDateJoueur = document.createElement("td");
+        DivEntryDateJoueur.classList.add("CasePro");
 
         const Nom = document.createElement("p");
-        Nom.textContent = reponse.agent;
-        DivNomAgent.appendChild(Nom);
-        if(Nom.textContent.toUpperCase() == getCookie('LegendGuessLegends').agent.toUpperCase()){DivNomAgent.style.backgroundColor = "green";}
-        else{DivNomAgent.style.backgroundColor = "red";}
+        Nom.textContent = reponse.name;
+        DivNomJoueur.appendChild(Nom);
+        if(Nom.textContent.toUpperCase() == getCookie('PlayerGuessPro').name.toUpperCase()){DivNomJoueur.style.backgroundColor = "green";}
+        else{DivNomJoueur.style.backgroundColor = "red";} 
 
-        const img = document.createElement("img");
-        img.classList.add("ImageDansCase");
-        img.src = reponse.image;
-        img.alt = "imgPropal";
-        DivimgAgent.appendChild(img);
-        DivimgAgent.style.backgroundColor = DivNomAgent.style.backgroundColor;
+        const nationality = document.createElement("p");
+        nationality.textContent = reponse.nationality;
+        DivNationalityJoueur.appendChild(nationality);
+        if(nationality.textContent.toUpperCase() == getCookie('PlayerGuessPro').nationality.toUpperCase()){DivNationalityJoueur.style.backgroundColor = "green";}
+        else{DivNationalityJoueur.style.backgroundColor = "red";}
 
-        DivConteneurAgent.appendChild(DivimgAgent);
-        DivConteneurAgent.appendChild(DivNomAgent);
+        const Team = document.createElement("p");
+        Team.textContent = reponse.team;
+        DivTeamJoueur.appendChild(Team);
+        if(Team.textContent.toUpperCase() == getCookie('PlayerGuessPro').team.toUpperCase()){DivTeamJoueur.style.backgroundColor = "green";}
+        else{DivTeamJoueur.style.backgroundColor = "red";}
 
-        const Sex = document.createElement("p");
-        if(reponse.sexe =='f'){Sex.textContent = "Female";}
-        else if(reponse.sexe =='h'){Sex.textContent = "Male"}
-        else{Sex.textContent = "Unknown"}
-        DivSexAgent.appendChild(Sex);
-        if(reponse.sexe == getCookie('LegendGuessLegends').sexe){DivSexAgent.style.backgroundColor = "green";}
-        else{DivSexAgent.style.backgroundColor = "red";}
-        DivConteneurAgent.appendChild(DivSexAgent);
+        const Status = document.createElement("p");
+        Status.textContent = reponse.status;
+        DivStatusJoueur.appendChild(Status);
+        if(Status.textContent.toUpperCase() == getCookie('PlayerGuessPro').status.toUpperCase()){DivStatusJoueur.style.backgroundColor = "green";}
+        else{DivStatusJoueur.style.backgroundColor = "red";}
 
-        const role = document.createElement("p");
-        role.textContent = reponse.type;
-        DivRoleAgent.appendChild(role);
-        if(role.textContent == getCookie('LegendGuessLegends').type){DivRoleAgent.style.backgroundColor = "green";}
-        else{DivRoleAgent.style.backgroundColor = "red";}
-        DivConteneurAgent.appendChild(DivRoleAgent);
+        const Age = document.createElement("p");
+        Age.textContent = reponse.age;
+        DivAgeJoueur.appendChild(Age);
+        if(Age.textContent.toUpperCase() == getCookie('PlayerGuessPro').age.toUpperCase()){DivAgeJoueur.style.backgroundColor = "green";}
+        else{DivAgeJoueur.style.backgroundColor = "red";}
 
-        const relDate = document.createElement("p");
-        relDate.textContent = reponse.date;
-        DivDateSortie.appendChild(relDate);
-        if(relDate.textContent == getCookie('LegendGuessLegends').date){DivDateSortie.style.backgroundColor = "green";}
-        else{DivDateSortie.style.backgroundColor = "red";}
-        DivConteneurAgent.appendChild(DivDateSortie);
+        const Entry = document.createElement("p");
+        Entry.textContent = reponse.entryYear;
+        DivEntryDateJoueur.appendChild(Entry);
+        if(Entry.textContent.toUpperCase() == getCookie('PlayerGuessPro').entryYear.toUpperCase()){DivEntryDateJoueur.style.backgroundColor = "green";}
+        else{DivEntryDateJoueur.style.backgroundColor = "red";}
 
-        afficheproposition.appendChild(DivConteneurAgent);
+        DivConteneurJoueur.appendChild(DivNomJoueur);
+        DivConteneurJoueur.appendChild(DivNationalityJoueur);
+        DivConteneurJoueur.appendChild(DivTeamJoueur);
+        DivConteneurJoueur.appendChild(DivStatusJoueur);
+        DivConteneurJoueur.appendChild(DivAgeJoueur);
+        DivConteneurJoueur.appendChild(DivEntryDateJoueur);
+
+        afficheproposition.appendChild(DivConteneurJoueur);
         
     })
     afficheproposition.style = document.getElementById("caracteristique").style;
@@ -226,9 +214,10 @@ const affichage = () =>{
 affichage();
 
 
+
 /*
 -------------------------------------------------------------------------------
-affichage fin de manche une fois la legend trouvé
+affichage fin de manche une fois la player trouvé
 -------------------------------------------------------------------------------
 */
 const afficherFin = (reponse) =>{
@@ -243,10 +232,10 @@ const afficherFin = (reponse) =>{
     document.getElementById("tout").style.display = "flex";
     document.getElementById("tout").style.flexDirection = "column";
     document.getElementById("tout").style.alignItems = "center";
-    document.getElementById("nom").textContent = reponse.agent;
+    document.getElementById("nom").textContent = reponse.name;
     document.getElementById("try").textContent = "TRY : " + TabReponse.length;
     document.getElementById("perso").style.display ="flex";
-    document.querySelector("#perso img").src = reponse.image;
+    document.querySelector("#perso img").src = reponse.img != '' ? reponse.img : imgBase;
     document.querySelector("#perso img").alt = "perso";
     document.querySelector("#perso img").style.width = "50%";
     document.querySelector("#perso img").style.height = "50%";
@@ -254,7 +243,7 @@ const afficherFin = (reponse) =>{
     document.getElementById("doubleBordure").style.border = "solid white 2px";
     document.getElementById("doubleBordure").style.paddingRight = "150%";
     document.getElementById("doubleBordure").style.paddingLeft = "150%";
-    document.getElementById("suivant").textContent = "Ability";
+    document.getElementById("suivant").textContent = "Map";
     document.getElementById("suivant").style.textAlign = "center";
     document.getElementById("suivant").style.color = "white";
     document.getElementById("suivant").style.padding = "5%";
@@ -269,8 +258,8 @@ const afficherFin = (reponse) =>{
 }
 
 
-if(getCookie('GuessLegends')){
-    afficherFin(getCookie('LegendGuessLegends'));
+if(getCookie('GuessPro')){
+    afficherFin(getCookie('PlayerGuessPro'));
 }
 
 /*
@@ -280,8 +269,8 @@ condition d'affichage du tableau de Proposition personnage
 */
 recherche.addEventListener('keydown',(event)=>{
     if((event.key == 'Enter' || event =='13') && TabProposition.length >= 0){
-        let legend = TabProposition[SelectedProposition];
-        recherche.value = legend.agent;
+        let player = TabProposition[SelectedProposition];
+        recherche.value = player.name;
         ButtonSubmit.click();
         SelectedProposition = 0;
     }
@@ -325,14 +314,14 @@ const ajouterProposition = () => {
         ListProposition.innerHTML = "";
         TabProposition = [];
     } else {
-        TabLegend.forEach(legend => {
-            if (legend.agent.toUpperCase().includes(recherche.value.toUpperCase())) {
+        TabPro.forEach(player => {
+            if (player.name.toUpperCase().includes(recherche.value.toUpperCase())) {
                 const dejaPropose = TabReponse.some(reponse => 
-                    reponse.agent.toUpperCase() === legend.agent.toUpperCase()
+                    reponse.name.toUpperCase() === player.name.toUpperCase()
                 );
 
-                if (!dejaPropose && !TabProposition.includes(legend)) {
-                    TabProposition.push(legend);
+                if (!dejaPropose && !TabProposition.includes(player)) {
+                    TabProposition.push(player);
                 }
             }
         });
@@ -354,7 +343,7 @@ const printPropal = () =>{
         ListProposition.style.width = "20%";
         TabProposition.forEach(propal =>{
                 const proposition = document.createElement("li");
-                proposition.textContent = propal.agent;
+                proposition.textContent = propal.name;
                 proposition.style.color = "white";
                 proposition.textShadow = "5px 5px 5px black";
                 proposition.style.textAlign = "center";

@@ -23,15 +23,12 @@ header h1{
     text-shadow: 5px 5px 5px black;
 }
 
-body p {
-    font-size: 2em;
-}
-
 header p{
     display: flex;
     justify-content: center;
     font-family: 'Apex_thin';
     text-shadow: 3px 3px 3px black;
+    font-size: 2em;
 }
 
 #theme p {
@@ -119,20 +116,15 @@ button:hover {
     justify-content: center;
 }
 
+#GG p{
+    font-size: 2em;
+}
+
 
 @keyframes pop {
     from {transform: rotateY(0deg);}
     to {transform: rotateY(180deg);}
   }
-
-
-.CaseNomAgent{
-    width : 20%;
-    max-height: 150px;
-    border : solid white 1px;
-    margin : 1.5%;
-    text-align : center;
-}
   
 .CaseImage {
     max-height: 150px;
@@ -147,23 +139,7 @@ button:hover {
     align-self : flex-end;
 }
 
-.CaseSexAgent {
-    width: 20%;
-    max-height: 150px;
-    border: solid white 1px;
-    margin: 1.5%;
-    text-align: center;
-}
-
-.CaseRoleAgent {
-    width: 20%;
-    max-height: 150px;
-    border: solid white 1px;
-    margin: 1.5%;
-    text-align: center;
-}
-
-.CaseDateAgent {
+.CaseAgent {
     width: 20%;
     max-height: 150px;
     border: solid white 1px;
@@ -177,9 +153,12 @@ button:hover {
     justify-content: center;
 }
 
-#display-results{
-    width: 50%;
+.CasePro {
+    width: 15%;
+    max-height: 150px;
+    border: solid white 1px;
+    margin: 1%;
+    text-align: center;
 }
-
 
   
