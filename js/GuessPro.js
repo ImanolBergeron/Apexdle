@@ -6,11 +6,11 @@
  let TabPro = [
     {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
     {name : 'Birt', nationality : 'Canada', team : 'Team FiRE',status: 'Retired', age: '26', entryYear : '2019', img :''},
-    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
-    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
-    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
-    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
-    {name : 'Blinkzr', nationality : 'Canada', team : 'Oblivion',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'CcobraxX', nationality : 'Canada', team : 'CCE UCX',status: 'Active', age: '24', entryYear : '2022', img :''},
+    {name : 'Chris', nationality : 'Canada', team : 'Moon Boy',status: 'Retired', age: '25', entryYear : '2019', img :''},
+    {name : 'Coce', nationality : 'Canada', team : 'Eternal Esport Club',status: 'Active', age: '22', entryYear : '2022', img :''},
+    {name : 'Crank', nationality : 'Canada', team : 'Luminosity Gaming',status: 'Retired', age: '25', entryYear : '2019', img :''},
+    {name : 'Crust', nationality : 'Canada', team : 'BR Demonz',status: 'Active', age: '22', entryYear : '2019', img :'../image/Pro/crust.jpg'},
 ];
 
 let TabReponse = [];
