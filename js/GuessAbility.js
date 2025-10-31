@@ -5,7 +5,7 @@
  */
  let TabLegend = [
     {image : '../image/perso/alter.webp', type : 'Skirmisher', agent : 'Alter',sexe: 'f', date: '2021'},
-    {image : '../image/perso/ash.webp', type : 'Assault', agent : 'Ash',sexe: 'f', date: '2021'},
+    {image : '../image/perso/ash.webp', type : 'Skirmisher', agent : 'Ash',sexe: 'f', date: '2021'},
     {image : '../image/perso/ballistic.webp', type : 'Assault', agent : 'Ballistic',sexe: 'h',date: '2023'},
     {image : '../image/perso/bangalore.webp', type : 'Assault', agent : 'Bangalore',sexe: 'f', date:'2019'},
     {image : '../image/perso/bloodhound.webp', type : 'Recon', agent : 'Bloodhound', sexe: 'u', date:'2019'},
@@ -24,12 +24,13 @@
     {image : '../image/perso/octane.webp', type : 'Skirmisher', agent : 'Octane', sexe: 'h',date:'2019'},
     {image : '../image/perso/pathfinder.webp', type : 'Skirmisher', agent : 'Pathfinder', sexe: 'h',date:'2019'},
     {image : '../image/perso/rampart.webp', type : 'Controller', agent : 'Rampart', sexe: 'f',date:'2020'},
-    {image : '../image/perso/revenant.webp', type : 'Skirmisher', agent : 'Revenant', sexe: 'h',date:'2020'},
+    {image : '../image/perso/revenant.webp', type : 'Assault', agent : 'Revenant', sexe: 'h',date:'2020'},
     {image : '../image/perso/seer.png', type : 'Recon', agent : 'Seer', sexe: 'h',date:'2021'},
-    {image : '../image/perso/valkyrie.webp', type : 'Skirmisher', agent : 'Valkyrie', sexe: 'f',date:'2021'},
+    {image : '../image/perso/sparrow.png', type : 'Recon', agent : 'Sparrow', sexe: 'h',date:'2025'},
+    {image : '../image/perso/valkyrie.webp', type : 'Recon', agent : 'Valkyrie', sexe: 'f',date:'2021'},
     {image : '../image/perso/vantage.webp', type : 'Recon', agent : 'Vantage', sexe: 'f',date:'2022'},
     {image : '../image/perso/wattson.webp', type : 'Controller', agent : 'Wattson', sexe: 'f',date:'2019'},
-    {image : '../image/perso/wraith.webp', type : 'Assault', agent : 'Wraith', sexe: 'f',date:'2019'}
+    {image : '../image/perso/wraith.webp', type : 'Skirmisher', agent : 'Wraith', sexe: 'f',date:'2019'}
 ];
 
 let TabAbility = [
@@ -55,6 +56,7 @@ let TabAbility = [
     {image : '../image/capa/capaRampart.png', type : 'Capacity', agent : 'Rampart'},
     {image : '../image/capa/capaRevenant.png', type : 'Capacity', agent : 'Revenant'},
     {image : '../image/capa/capaSeer.png', type : 'Capacity', agent : 'Seer'},
+    {image : '../image/capa/capaSparrow.png', type : 'Capacity', agent : 'Sparrow'},
     {image : '../image/capa/capaValki.png', type : 'Capacity', agent : 'Valkyrie'},
     {image : '../image/capa/capaVantage.png', type : 'Capacity', agent : 'Vantage'},
     {image : '../image/capa/capaWattson.png', type : 'Capacity', agent : 'Wattson'},
@@ -80,6 +82,7 @@ let TabAbility = [
     {image : '../image/capa/passifRampart.png', type : 'Passif', agent : 'Rampart'},
     {image : '../image/capa/passifRevenant.png', type : 'Passif', agent : 'Revenant'},
     {image : '../image/capa/passifSeer.png', type : 'Passif', agent : 'Seer'},
+    {image : '../image/capa/passifSparrow.png', type : 'Passif', agent : 'Sparrow'},
     {image : '../image/capa/passifValki.png', type : 'Passif', agent : 'Valkyrie'},
     {image : '../image/capa/passifVantage.png', type : 'Passif', agent : 'Vantage'},
     {image : '../image/capa/passifWattson.png', type : 'Passif', agent : 'Wattson'},
@@ -105,6 +108,7 @@ let TabAbility = [
     {image : '../image/capa/ultRampart.png', type : 'Ulti', agent : 'Rampart'},
     {image : '../image/capa/ultRevenant.png', type : 'Ulti', agent : 'Revenant'},
     {image : '../image/capa/ultSeer.png', type : 'Ulti', agent : 'Seer'},
+    {image : '../image/capa/ultSparrow.png', type : 'Ulti', agent : 'Sparrow'},
     {image : '../image/capa/ultValki.png', type : 'Ulti', agent : 'Valkyrie'},
     {image : '../image/capa/ultVantage.png', type : 'Ulti', agent : 'Vantage'},
     {image : '../image/capa/ultWattson.png', type : 'Ulti', agent : 'Wattson'},
