@@ -3,6 +3,7 @@
 * check toute les image de capa et surtout des passif des legend car beaucoup ont été update.
 * remplir le tableau des info sur les pro ( grace a l'API liquipedia)
 * ajouter les image et les coordonnées de celle ci pour le guess Location.
+* ajouter les keyframe pour guessLegend et guessPro
 
 # pour les version future du site
 * pour les guessWeapon et guessAbility, rajouter soit un effet de blur sur l'image qui se diminu a chaque try ou alors un dezoom petit a petit
