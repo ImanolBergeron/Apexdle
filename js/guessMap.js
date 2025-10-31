@@ -5,8 +5,8 @@
  */
 let Tabmap = [
     {Map : "Kings Canyon", location : {x: 168, y: 394.5}, img : "../image/guessMap/teste-kingCanyon.png"},
-    /*{Map : "Olympus", location : {x: 0, y: 0}, img : ""},
-    {Map : "Storm Point", location : {x: 0, y: 0}, img : ""},
+    {Map : "Olympus", location : {x: 574, y: 446}, img : "../image/guessMap/teste-olympus.png"},
+    /*{Map : "Storm Point", location : {x: 0, y: 0}, img : ""},
     {Map : "Broken Moon", location : {x: 0, y: 0}, img : ""},
     {Map : "World's Edge", location : {x: 0, y: 0}, img : ""},
     {Map : "E-District", location : {x: 0, y: 0}, img : ""},*/
