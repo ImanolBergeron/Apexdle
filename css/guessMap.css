@@ -59,7 +59,7 @@ a{
     height: 100px;
 }
 
-.containerRow{
+#containerRow{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,4 +84,69 @@ body{
     background-image: url('../image/apexfond3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+
+img{
+    display: flex;
+    justify-content: center;
+    margin : 2%;
+}
+
+#locationImage{
+    color : white;
+    display: flex;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 90%;
+    
+}
+
+#ConteneurImageLocation{
+    background-color: rgb(128,128,128,0.7);
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+#location{
+    display: flex;
+    justify-content: center;
+    
+}
+
+#map-canvas {
+    border: 2px solid #333;
+    display: none;
+}
+
+
+#submit-guess {
+    display: none;
+    margin-right : 2%;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color:red;
+    color:#fff;
+    font-weight: bold;
+    border:none;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    width: 20%;
+    cursor: pointer;
+
+}
+
+#ConteneurCanvas{
+    justify-content: space-between;
+}
+
+#bordure{
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
 }

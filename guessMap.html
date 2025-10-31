@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/guessMap.css">
+    <script type="module" src="js/guessMap.js"></script>
     <title>guessMap</title>
 </head>
 
@@ -15,7 +16,7 @@
         <h1>Guess the Map location based on an Image</h1>
     </header>
 
-    <div class="containerRow">
+    <div id="containerRow">
         <button class="mapButtons" value="Kings Canyon">Kings Canyon</button>
         <button class="mapButtons" value="Olympus">Olympus</button>
         <button class="mapButtons" value="Storm Point">Storm Point</button>
@@ -23,6 +24,43 @@
         <button class="mapButtons" value="World's Edge">World's Edge</button>
         <button class="mapButtons" value="E-District">E-District</button>
     </div>
+
+    <div id="location">
+        <div id="ConteneurCanvas">
+            <canvas id="map-canvas" width="800" height="800"></canvas>
+            <div id="submit-guess">Valider le point</div>
+        </div>
+        <div id="ConteneurImageLocation">
+            <img id="locationImage" src="#" alt="location Image">
+        </div>
+        
+    </div>
+
+
+    <div id="bordure">
+        <div id="GG">
+            <div id="tout">
+                <p id="texteGG"></p>
+                <div id="perso">
+                    <img src="bg" alt="">
+                    <div id="txt">
+                        <p id="nom"></p>
+                        <p id="try"></p>
+                    </div>
+                </div>
+                <a href="guessLegend.html">
+                    <div id="button">
+                        <div id="doubleBordure">
+                            <div id ="SousCategorie">
+                                <h3 id="suivant"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="vide"></div>
     
-    </body>
+</body>
 </html>
