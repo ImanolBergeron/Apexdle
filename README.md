@@ -1,6 +1,4 @@
 # a faire pour la v1 du site
-* rajouter les images des capa de wraith ( g du les oublier)
-* check toute les image de capa et surtout des passif des legend car beaucoup ont été update.
 * remplir le tableau des info sur les pro ( grace a l'API liquipedia)
 * ajouter les image et les coordonnées de celle ci pour le guess Location.
 * ajouter les keyframe pour guessLegend et guessPro

@@ -60,6 +60,7 @@ let TabAbility = [
     {image : '../image/capa/capaValki.png', type : 'Capacity', agent : 'Valkyrie'},
     {image : '../image/capa/capaVantage.png', type : 'Capacity', agent : 'Vantage'},
     {image : '../image/capa/capaWattson.png', type : 'Capacity', agent : 'Wattson'},
+    {image : '../image/capa/capaWraith.png', type : 'Capacity', agent : 'Wraith'},
     {image : '../image/capa/passifAlter.png', type : 'Passif', agent : 'Alter'},
     {image : '../image/capa/passifAsh.png', type : 'Passif', agent : 'Ash'},
     {image : '../image/capa/passifBallistic.png', type : 'Passif', agent : 'Ballistic'},
@@ -86,6 +87,7 @@ let TabAbility = [
     {image : '../image/capa/passifValki.png', type : 'Passif', agent : 'Valkyrie'},
     {image : '../image/capa/passifVantage.png', type : 'Passif', agent : 'Vantage'},
     {image : '../image/capa/passifWattson.png', type : 'Passif', agent : 'Wattson'},
+    {image : '../image/capa/passifWraith.png', type : 'Passif', agent : 'Wraith'},
     {image : '../image/capa/ultAlter.png', type : 'Ulti', agent : 'Alter'},
     {image : '../image/capa/ultAsh.png', type : 'Ulti', agent : 'Ash'},
     {image : '../image/capa/ultBallistic.png', type : 'Ulti', agent : 'Ballistic'},
@@ -112,6 +114,7 @@ let TabAbility = [
     {image : '../image/capa/ultValki.png', type : 'Ulti', agent : 'Valkyrie'},
     {image : '../image/capa/ultVantage.png', type : 'Ulti', agent : 'Vantage'},
     {image : '../image/capa/ultWattson.png', type : 'Ulti', agent : 'Wattson'},
+    {image : '../image/capa/ultWraith.png', type : 'Ulti', agent : 'Wraith'},
     ];
 
 let TabReponse = [];
