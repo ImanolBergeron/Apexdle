@@ -44,7 +44,8 @@ header p{
 }
 
 body{
-    background-image: url('../image/apexfond3.jpg') ;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url('../image/apexfond3.jpg'); ;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover ;
