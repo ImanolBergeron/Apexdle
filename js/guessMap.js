@@ -164,7 +164,7 @@ function submitGuess() {
     drawMarker(correct.x, correct.y, 'red');
 
     // Calculer la distance (en pixels)
-    const distance = Math.sqrt(
+    let distance = Math.sqrt(
     Math.pow(playerGuess.x - correct.x, 2) + Math.pow(playerGuess.y - correct.y, 2)
     );
 
@@ -176,6 +176,11 @@ function submitGuess() {
     document.getElementById('submit-guess').style.display = 'none';
     drawDottedLine(ctx,playerGuess,correct);
     afficherFin(distance, score);
+    let now = new Date();
+    let midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let tempsCookie = Math.floor((midnight - now) / 1000)
+    document.cookie ='GuessLocation=' +JSON.stringify(playerGuess)+'; max-age=' + tempsCookie;
 }
 
 ButtonSubmit.addEventListener('click', () => {
@@ -264,4 +269,32 @@ function drawDottedLine(ctx, point1, point2, dashLength = 5, gapLength = 5, line
   }
 
   ctx.stroke();
+}
+
+
+if(getCookie('GuessLocation')){
+    boutons.forEach(button => {
+        button.addEventListener('click', () =>{
+            if (button.value.toUpperCase() === getCookie('locationGuessMap').Map.toUpperCase()){
+                button.click();
+            }
+        })
+    });
+    playerGuess = {
+        x: null,
+        y: null
+    };
+    const correct = getCookie('locationGuessMap').location;
+    playerGuess.x = getCookie('GuessLocation').x
+    playerGuess.y = getCookie('GuessLocation').y
+    drawMap();
+    drawMarker(correct.x, correct.y, 'red');
+    drawDottedLine(ctx,playerGuess,correct);
+    const maxDistance = 500;
+    let distance = Math.sqrt(
+        Math.pow(playerGuess.x - correct.x, 2) + Math.pow(playerGuess.y - correct.y, 2)
+    );
+    let score = Math.max(0, 1000 * (1 - distance / maxDistance));
+    score = score - (MultiPerte * 50);
+    afficherFin(distance, score);
 }

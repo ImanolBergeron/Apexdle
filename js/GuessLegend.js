@@ -119,7 +119,11 @@ ButtonSubmit.addEventListener('click' , () =>{
     affichage();
     if(trouvee){
         afficherFin(getCookie('LegendGuessLegends'));
-        document.cookie ='GuessLegends='+ true;
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000)
+        document.cookie ='GuessLegends='+ true + '; max-age=' + tempsCookie;
     }
     recherche.value = "";
 })

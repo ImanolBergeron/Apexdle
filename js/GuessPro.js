@@ -101,7 +101,11 @@ ButtonSubmit.addEventListener('click' , () =>{
     affichage();
     if(trouvee){
         afficherFin(getCookie('PlayerGuessPro'));
-        document.cookie ='GuessPro='+ true;
+        let now = new Date();
+        let midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let tempsCookie = Math.floor((midnight - now) / 1000)
+        document.cookie ='GuessPro='+ true + '; max-age=' + tempsCookie;
     }
     recherche.value = "";
 })
