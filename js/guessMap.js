@@ -112,6 +112,7 @@ const ctx = canvas.getContext('2d');
 let mapImage = new Image();
 let ButtonSubmit = document.getElementById('submit-guess');
 let playerGuess = null;
+let correct = null;
 
 function drawMap() {
     canvas.style.display = 'block';
@@ -127,6 +128,10 @@ function drawMap() {
         ctx.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
         if (playerGuess) {
             drawMarker(playerGuess.x, playerGuess.y, 'blue');
+        }
+        if(correct){
+            drawMarker(correct.x, correct.y, 'red');
+            drawDottedLine(ctx, playerGuess,correct);
         }
     };
 }
@@ -151,7 +156,7 @@ canvas.addEventListener('click', (event) => {
         y: (event.clientY - rect.top) * scaleY
     };
     drawMap();
-    drawMarker(playerGuess.x, playerGuess.y, 'blue');
+    //drawMarker(playerGuess.x, playerGuess.y, 'blue');
     console.log(playerGuess.x, playerGuess.y);
 });
 
@@ -160,7 +165,7 @@ function submitGuess() {
     if (!playerGuess) {
         return;
     }
-    const correct = getCookie('locationGuessMap').location;
+    correct = getCookie('locationGuessMap').location;
     drawMarker(correct.x, correct.y, 'red');
 
     // Calculer la distance (en pixels)
@@ -284,17 +289,8 @@ if(getCookie('GuessLocation')){
         x: null,
         y: null
     };
-    const correct = getCookie('locationGuessMap').location;
     playerGuess.x = getCookie('GuessLocation').x
     playerGuess.y = getCookie('GuessLocation').y
     drawMap();
-    drawMarker(correct.x, correct.y, 'red');
-    drawDottedLine(ctx,playerGuess,correct);
-    const maxDistance = 500;
-    let distance = Math.sqrt(
-        Math.pow(playerGuess.x - correct.x, 2) + Math.pow(playerGuess.y - correct.y, 2)
-    );
-    let score = Math.max(0, 1000 * (1 - distance / maxDistance));
-    score = score - (MultiPerte * 50);
-    afficherFin(distance, score);
+    submitGuess();
 }
